@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include '../SendMail.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
@@ -50,6 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $_SESSION['errors'] = [];
         $_SESSION['old_data'] = [];
+        $message = "We will be back in touch with you within one business day using the information you just provided below";
+
+        $mail = new SendMail();
+        $mail->mail($email, $message);
+
     }
 
 
